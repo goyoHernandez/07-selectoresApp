@@ -1,0 +1,53 @@
+<div class="container">
+  <h1 class="mt-5">Selectores anidados</h1>
+  <form [formGroup]="mySelectorsForm" (ngSubmit)="Save()">
+    <!-- Select Regions -->
+    <div class="mb-3 col-5">
+      <label for="exampleInputEmail1" class="form-label">Continente</label>
+      <select class="form-select" formControlName="region">
+        <option value="">Seleccione una opción</option>
+        <option *ngFor="let region of regions" [value]="region | lowercase">
+          {{ region }}
+        </option>
+      </select>
+    </div>
+    <!-- Select Countries -->
+    <div class="mb-3 col-5" *ngIf="countries.length !== 0">
+      <label for="exampleInputEmail1" class="form-label">Pais</label>
+      <select class="form-select" formControlName="country">
+        <option value="">Seleccione una opción</option>
+        <option
+          *ngFor="let country of countries"
+          [value]="country.cca3 | lowercase"
+        >
+          {{ country.name.common }}
+        </option>
+      </select>
+    </div>
+    <!-- Select Frontier -->
+    <div class="mb-3 col-5" *ngIf="frontiers.length !== 0">
+      <label for="exampleInputEmail1" class="form-label">Frontera</label>
+      <select class="form-select" formControlName="frontier">
+        <option value="">Seleccione una opción</option>
+        <option
+          *ngFor="let frontier of frontiers"
+          [value]="frontier | lowercase"
+        >
+          {{ frontier | uppercase }}
+        </option>
+      </select>
+    </div>
+    <div class="row" *ngIf="loading">
+      <div class="col">
+        <div class="alert alert-primary">Cargando</div>
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col">
+        <button class="btn btn-primary float end" type="submit">Aceptar</button>
+      </div>
+    </div>
+  </form>
+  <pre>Valid Form: {{ mySelectorsForm.valid }}</pre>
+  <pre>Value Form: {{ mySelectorsForm.value | json }}</pre>
+</div>
